@@ -1,0 +1,5 @@
+*.txt
+*~
+*.pyc
+Thumbs.db
+desktop.ini
