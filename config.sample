@@ -1,0 +1,7 @@
+[Login]
+Username = your_username
+Password = your_password
+Domain = your_domain
+
+[File]
+FileSeed = seeder.txt

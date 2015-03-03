@@ -1,9 +1,15 @@
+#!/usr/bin/python
+
 import urllib2
 import cookielib
 import urllib
 import re
 import sys
 import time
+import ConfigParser
+
+Config = ConfigParser.ConfigParser()
+Config.read('config')
 
 def chkacctexist(acctname):
     search_dict = {
@@ -44,12 +50,15 @@ def splitpassword(passwd):
 cj = cookielib.CookieJar()
 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
 
- # login credential
+username = Config.get('Login','Username')
+password = Config.get('Login', 'Password')
+domain = Config.get('Login', 'Domain')
+
 login_data = urllib.urlencode(
     {
-        'username': 'user', 
-        'password': 'password',
-        'domain': 'domain.com.my'
+        'username': username, 
+        'password': password,
+        'domain': domain
     }
 )
 try:
@@ -67,9 +76,12 @@ except urllib2.HTTPError as e:
 
 
 # Open file and add to custodian
-file = open('addhoc.txt', 'r')
+FileSeed = Config.get('File', 'FileSeed')
+file = open(FileSeed, 'r')
 count = 1
+
 for line in file:
+    if re.search(r'^\#', line): continue
     name, username, passwd, address = line.split(';')
     passsplit = splitpassword(passwd)
     add_dict = {
