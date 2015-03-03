@@ -49,7 +49,7 @@ login_data = urllib.urlencode(
     {
         'username': 'user', 
         'password': 'password',
-        'domain': '.com.my'
+        'domain': 'domain.com.my'
     }
 )
 try:
@@ -67,7 +67,7 @@ except urllib2.HTTPError as e:
 
 
 # Open file and add to custodian
-file = open('file.txt', 'r')
+file = open('addhoc.txt', 'r')
 count = 1
 for line in file:
     name, username, passwd, address = line.split(';')
